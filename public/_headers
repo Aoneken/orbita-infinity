@@ -25,12 +25,12 @@
 /sw.js
   Cache-Control: no-cache, no-store, must-revalidate
 
-# Cache Control: HTML (cache moderado con revalidación)
+# Cache Control: HTML (sin cache para actualizaciones inmediatas)
 /*.html
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: no-cache, no-store, must-revalidate
 /
-  Cache-Control: public, max-age=0, must-revalidate
+  Cache-Control: no-cache, no-store, must-revalidate
 
-# Cache Control: Manifest y config (cache corto)
+# Cache Control: Manifest y config (sin cache)
 /manifest.webmanifest
-  Cache-Control: public, max-age=86400
+  Cache-Control: no-cache, no-store, must-revalidate
