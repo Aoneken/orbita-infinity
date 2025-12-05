@@ -122,7 +122,6 @@ export function InfoView() {
           description="Boletín Oficial Simplificado"
           icon={logoElement}
           badge={versionBadge}
-          badge={versionBadge}
           className="mb-6 sm:mb-8"
         />
 

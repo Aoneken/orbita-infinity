@@ -1,4 +1,3 @@
-import legacy from "@vitejs/plugin-legacy";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
@@ -11,25 +10,6 @@ export default defineConfig({
   },
   plugins: [
     react(),
-    // Plugin Legacy: Genera bundles compatibles con navegadores antiguos
-    // Inyecta polyfills automáticamente para ES6+, Promises, async/await, etc.
-    legacy({
-      // Navegadores objetivo para el bundle legacy
-      targets: [
-        "defaults",
-        "not IE 11",
-        "> 0.5%",
-        "last 2 versions",
-        "Firefox ESR",
-        "iOS >= 12",
-        "Safari >= 12",
-        "Chrome >= 64",
-      ],
-      // Incluir polyfills para características modernas
-      additionalLegacyPolyfills: ["regenerator-runtime/runtime"],
-      // Generar bundle moderno también (ES modules para navegadores modernos)
-      modernPolyfills: true,
-    }),
     // Plugin PWA: Service Worker y manifest para instalación móvil
     VitePWA({
       registerType: "autoUpdate",
