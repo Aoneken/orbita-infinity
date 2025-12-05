@@ -11,6 +11,7 @@ import {
   Github,
   Info,
   Mail,
+  RefreshCw,
   Send,
   Sparkles,
   Zap,
@@ -79,9 +80,28 @@ export function InfoView() {
   const versionBadge = (
     <div className="inline-flex items-center gap-2 bg-primary/10 text-primary px-4 py-2 rounded-full">
       <Zap className="h-4 w-4" />
-      <span className="font-medium text-sm sm:text-base">v1.2.1</span>
+      <span className="font-medium text-sm sm:text-base">v1.2.2</span>
     </div>
   );
+
+  const handleHardRefresh = async () => {
+    try {
+      if ("serviceWorker" in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const registration of registrations) {
+          await registration.unregister();
+        }
+      }
+      if ("caches" in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map((key) => caches.delete(key)));
+      }
+      window.location.reload();
+    } catch (error) {
+      console.error("Error al limpiar caché:", error);
+      window.location.reload();
+    }
+  };
 
   const logoElement = (
     <picture>
@@ -102,8 +122,20 @@ export function InfoView() {
           description="Boletín Oficial Simplificado"
           icon={logoElement}
           badge={versionBadge}
+          badge={versionBadge}
           className="mb-6 sm:mb-8"
         />
+
+        {/* Botón de Actualización Forzada */}
+        <div className="flex justify-center mb-6">
+          <button
+            onClick={handleHardRefresh}
+            className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-full text-sm font-medium shadow-sm hover:bg-primary/90 active:scale-95 transition-all"
+          >
+            <RefreshCw className="h-4 w-4" />
+            Forzar Actualización
+          </button>
+        </div>
 
         {/* ¿Qué es Órbita? */}
         <Card className="mb-4 border-primary/20 bg-gradient-to-br from-primary/5 to-transparent">
